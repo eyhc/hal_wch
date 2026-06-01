@@ -95,7 +95,9 @@ typedef enum IRQn
 	.word   TIM1_TRG_COM_IRQHandler   /* TIM1 Trigger and Commutation */   \n\
 	.word   TIM1_CC_IRQHandler        /* TIM1 Capture Compare */           \n\
 	.word   TIM2_IRQHandler           /* TIM2 */                           \n\
-	.option   pop;\n"
+	.word   USART2_IRQHandler         /* USART2 */                         \n\
+    .word   OPCM_IRQHandler           /* OPCM */                           \n\
+    .option   pop;\n"
 
 
 /* memory mapped structure for SysTick */
@@ -782,6 +784,10 @@ typedef struct
 /*******************  Bit definition for ADC_CTLR2 register  ********************/
 #define ADC_ADON                                ((uint32_t)0x00000001) /* A/D Converter ON / OFF */
 #define ADC_CONT                                ((uint32_t)0x00000002) /* Continuous Conversion */
+
+#define ADC_CAL                                 ((uint32_t)0x00000004) /* Calibrate */
+#define ADC_RSTCAL                              ((uint32_t)0x00000008) /* Reset Calibration */
+
 #define ADC_TGREGU                              ((uint32_t)0x00000010) /* External trigger event of rule channel conversion */
 #define ADC_TGINJE                              ((uint32_t)0x00000020) /* External trigger event of injection channel conversion */
 #define ADC_DMA                                 ((uint32_t)0x00000100) /* Direct Memory access mode */
@@ -799,13 +805,13 @@ typedef struct
 #define ADC_EXTSEL_1                            ((uint32_t)0x00040000) /* Bit 1 */
 #define ADC_EXTSEL_2                            ((uint32_t)0x00080000) /* Bit 2 */
 #define ADC_EXTSEL_TRGO_1						((uint32_t)0x00000000) /* TRGO event of timer 1 		*/
-#define ADC_EXTSEL_CC1_1						((uint32_t)0x00000000) /* CC1 event of timer 1 			*/
-#define ADC_EXTSEL_CC2_1						((uint32_t)0x00000000) /* CC2 event of timer 1 			*/
-#define ADC_EXTSEL_TRGO_2						((uint32_t)0x00000000) /* TRGO event of timer 2 		*/
-#define ADC_EXTSEL_CC1_2						((uint32_t)0x00000000) /* CC1 event of timer 2 			*/
-#define ADC_EXTSEL_CC2_2						((uint32_t)0x00000000) /* CC2 event of timer 2 			*/
-#define ADC_EXTSEL_OPA							((uint32_t)0x00000000) /* OPA trigger/(PD3/PC2) 		*/
-#define ADC_EXTSEL_SWSTART						((uint32_t)0x00000000) /* SWSTART software trigger 	*/
+#define ADC_EXTSEL_CC1_1						((uint32_t)0x00020000) /* CC1 event of timer 1 			*/
+#define ADC_EXTSEL_CC2_1						((uint32_t)0x00040000) /* CC2 event of timer 1 			*/
+#define ADC_EXTSEL_TRGO_2						((uint32_t)0x00060000) /* TRGO event of timer 2 		*/
+#define ADC_EXTSEL_CC1_2						((uint32_t)0x00080000) /* CC1 event of timer 2 			*/
+#define ADC_EXTSEL_CC2_2						((uint32_t)0x000A0000) /* CC2 event of timer 2 			*/
+#define ADC_EXTSEL_OPA							((uint32_t)0x000C0000) /* OPA trigger/(PD3/PC2) 		*/
+#define ADC_EXTSEL_SWSTART						((uint32_t)0x000E0000) /* SWSTART software trigger 	*/
 
 #define ADC_EXTTRIG                             ((uint32_t)0x00100000) /* External Trigger Conversion mode for regular channels */
 #define ADC_JSWSTART                            ((uint32_t)0x00200000) /* Start Conversion of injected channels */
@@ -2481,6 +2487,7 @@ typedef struct
 #define TIM2_DMAINTENR_CC2DE                    ((uint16_t)0x0400) /* Capture/Compare 2 DMA request enable */
 #define TIM2_DMAINTENR_CC3DE                    ((uint16_t)0x0800) /* Capture/Compare 3 DMA request enable */
 #define TIM2_DMAINTENR_CC4DE                    ((uint16_t)0x1000) /* Capture/Compare 4 DMA request enable */
+#define TIM2_DMAINTENR_COMDE                    ((uint16_t)0x2000) /* COM DMA request enable */
 #define TIM2_DMAINTENR_TDE                      ((uint16_t)0x4000) /* Trigger DMA request enable */
 
 /*******************  Bit definition for TIM2_INTFR register  *****************/
